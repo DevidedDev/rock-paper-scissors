@@ -62,4 +62,60 @@ function playRound(playerSelection, computerSelection){
     
 }
 
-console.log(playRound(getPlayerSelection(), getComputerSelection()));
+function logGameWinner(winner){
+
+    if (winner === "player"){
+        console.log("Nice job, you won the game!")
+    }else{
+        console.log("You lost...A 10 line algorithm rly beat you... O_o")
+    }
+
+}
+
+function logRoundWinner(winner){
+    switch(winner){
+        case "draw":
+            console.log("Round ended with a draw!")
+            break;
+        case "player":
+            console.log("You won this round! Nice job!")
+            break;
+        case "computer":
+            console.log("The computer won this round")
+            break;
+    }
+}
+function game(){
+    let playerScore = 0;
+    let computerScore = 0;
+    let isPlaying = true;
+    while(isPlaying){
+        
+        const result = playRound(getPlayerSelection(), getComputerSelection());
+        
+        switch(result){
+            case "player":
+                playerScore++;
+                logRoundWinner(result);
+                break;
+            case "draw":
+                logRoundWinner(result);
+                break;
+            case "computer":
+                computerScore++;
+                logRoundWinner(result);
+                break;    
+        }
+        console.log(`Current score: --Player: ${playerScore} -- Computer: ${computerScore} --`);
+
+        if(computerScore === 5){
+            logGameWinner("computer");
+            isPlaying = false;
+        }else if(playerScore === 5){
+            logGameWinner("player")
+            isPlaying = false;
+        }
+    }
+}
+
+game();
