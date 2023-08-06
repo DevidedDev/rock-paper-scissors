@@ -15,7 +15,7 @@
 
 //function game: repe  ats 5 rounds
 
-function getComputerChoice(){
+function getComputerSelection(){
     const randNum = Math.floor(Math.random()*3)+1;
     switch(randNum){
         case 1: 
@@ -27,17 +27,39 @@ function getComputerChoice(){
     }
 }
 function getPlayerSelection(){
-    
+    let promptDisplay = "Rock, Paper or Scissors?";
     while(true){
-        let promptDisplay = "Rock, Paper or Scissors?";
-        let input = prompt(promptDisplay).toLocaleLowerCase();
-        switch(input){
-            case "rock":
-            case "scissors":
-            case "paper":
-                return input;
-        }      
-        promptDisplay = "Wrong value. Try again: " + promptDisplay;      
+        let input = prompt(promptDisplay);
+        if (input === null){ //if user presses cancel
+            alert("choose a value!");
+        } else{
+            input = input.toLowerCase();
+            switch(input){
+                case "rock":
+                case "scissors":
+                case "paper":
+                    return input;
+            } 
+            promptDisplay = "Wrong value. Try again: Rock, Paper or Scissors?";      
+        }
     }   
 }
-console.log(getPlayerSelection());
+
+
+function playRound(playerSelection, computerSelection){
+    console.log("Player: "+ playerSelection);
+    console.log("Computer:" + computerSelection);
+    if(playerSelection === computerSelection){
+        return "draw";
+
+    }else if(//player wins
+    (playerSelection === "rock" && computerSelection === "scissors")
+    || (playerSelection === "paper" && computerSelection === "rock")
+    || (playerSelection === "scissors" && computerSelection === "paper")
+    ){ 
+        return "player";     
+    }else return "computer";
+    
+}
+
+console.log(playRound(getPlayerSelection(), getComputerSelection()));
