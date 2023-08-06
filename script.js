@@ -3,6 +3,9 @@
     //create player points counter and bot points counter
     // make function for player Selection
         //get input from player
+            //make input non case sensitive
+            //check if input is valid
+            //repeat if not valid
         // reuturn player Selection
     // make function for  bot selection and store It
     //function:compare player selection and bot selection
@@ -23,4 +26,18 @@ function getComputerChoice(){
             return "scissors";
     }
 }
-console.log(getComputerChoice());
+function getPlayerSelection(){
+    
+    while(true){
+        let promptDisplay = "Rock, Paper or Scissors?";
+        let input = prompt(promptDisplay).toLocaleLowerCase();
+        switch(input){
+            case "rock":
+            case "scissors":
+            case "paper":
+                return input;
+        }      
+        promptDisplay = "Wrong value. Try again: " + promptDisplay;      
+    }   
+}
+console.log(getPlayerSelection());
