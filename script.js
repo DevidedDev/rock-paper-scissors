@@ -50,7 +50,7 @@ function playRound(playerPressed){
     }else return "computer";
     
 }
-function logSelections(){
+function logSelectionsImgs(){
     const playerSelectionDisplay = document.createElement("img");
     const computerSelectionDisplay = document.createElement("img");
 
@@ -76,22 +76,53 @@ function logRoundWinner(winner){
 
     switch(winner){
         case "draw":
-            gameResultDisplay.textContent="Draw!";
-
+            roundResultDisplay.textContent="Draw!";
             break;
         case "player":
-            gameResultDisplay.textContent="You win!";
+            roundResultDisplay.textContent="You win!";
+            break;
+        case "computer":
+            roundResultDisplay.textContent="Computer wins!";
+    }
+}
 
+function changeDisplayContainersBg(winner){
+    const classes = ["bg-yellow", "bg-green", "bg-red"];
+    classes.forEach(function (colorClass){
+        computerDisplayContainer.classList.remove(colorClass);
+        playerDisplayContainer.classList.remove(colorClass);
+    }); 
+    
+    switch (winner){
+        case "player":
+            computerDisplayContainer.classList.add("bg-red");
+            playerDisplayContainer.classList.add("bg-green");
+            break;
+        case "computer":
+            computerDisplayContainer.classList.add("bg-green");
+            playerDisplayContainer.classList.add("bg-red");
+            break;
+        case "draw":
+            computerDisplayContainer.classList.add("bg-yellow");
+            playerDisplayContainer.classList.add("bg-yellow");
+            break;
+    }
+
+}
+
+function changeScore(winner){
+    switch(winner){
+        case "draw":
+            break;
+        case "player":
             playerScore++;
             break;
         case "computer":
-            gameResultDisplay.textContent="Computer wins!";
-
             computerScore++;
-
             break;
     }
 }
+
 function logScore(){
     playerScoreDisplay.textContent = `Player: ${playerScore}`
     computerScoreDisplay.textContent = `Computer: ${computerScore}`
@@ -106,7 +137,7 @@ function checkGameWinner(){
     }
 }
 
-function logGameWinner(gameWinner){
+function logGameEnd(gameWinner){
     if(gameWinner === "computer"){
         gameResultDisplay.textContent = `A few lines of code rly beat you...`
 
@@ -117,31 +148,40 @@ function logGameWinner(gameWinner){
 
 }
 
+function removeGameEndLog(){
+    gameResultDisplay.textContent="";
+}
+
 function playGame(){
     removeLoggedSelections();
+    removeGameEndLog();
     const roundWinner = playRound(this);
     logRoundWinner(roundWinner);
+    changeScore(roundWinner);
     const gameWinner = checkGameWinner();
     logScore();
-    logSelections();
+    logSelectionsImgs();
+    changeDisplayContainersBg(roundWinner);
     if(gameWinner){
-        logGameWinner(gameWinner);
+        logScore();
+        logGameEnd(gameWinner);
         playerScore = 0;
         computerScore= 0;
         console.log(playerScore);
-        logScore();
+        
     }
 }
 
 
 const gameResultDisplay = document.getElementById("announce-result")
-const gameResultContainer = document.getElementById("round-result");
 
 const playerScoreDisplay = document.getElementById("player-score")
 const computerScoreDisplay = document.getElementById("computer-score");
 
 const playerDisplayContainer = document.getElementById("player-display-container");
 const computerDisplayContainer = document.getElementById("computer-display-container")
+
+const roundResultDisplay = document.getElementById("round-result");
 
 const rockChoice = document.getElementById("rock");
 const paperChoice = document.getElementById("paper");

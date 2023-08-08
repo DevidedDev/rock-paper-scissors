@@ -36,6 +36,21 @@ h2{
     font-size: 30px;
     padding-bottom: 10px;
 }
+.bg-green,
+.bg-red,
+.bg-yellow{
+    transition: 0.5;
+}
+
+.bg-red{
+    background-color: rgba(255, 0, 0, 0.322);
+}
+.bg-green{
+    background-color: rgba(8, 221, 8, 0.3);
+}
+.bg-yellow{
+    background-color: rgba(255, 226, 64, 0.3);
+}
 
 .display-above{
     z-index: 10;
@@ -72,7 +87,7 @@ h2{
 }
 
 
-#round-result{
+.display-container{
     flex: 1;
     display: flex;
     align-items: center;
@@ -80,6 +95,9 @@ h2{
     gap: 20px;
 }
 
+/* #announce-result{
+
+} */
 .img-container{
     box-sizing: border-box;
     padding: 10px;
@@ -91,13 +109,31 @@ h2{
 
 }
 
-#round-result .img-container{
+
+
+.display-container .img-container{
     width: 20vw;
     height: 20vw;
     max-width: 400px;
     max-height: 400px;
     min-height: 250px;
     min-width: 250px;
+}
+
+
+
+@keyframes appear-slowly {
+    from {
+        transfrom: scale(0);
+        opacity: 0;
+    } to{
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+.display-container .img-container img{
+    animation: appear-slowly .3s linear;
 }
 .VS-logo{
     margin-top: 20px;
