@@ -28,21 +28,8 @@ function getComputerSelection(){
 }
 function getPlayerSelection(){
     let promptDisplay = "Rock, Paper or Scissors?";
-    while(true){
-        let input = prompt(promptDisplay);
-        if (input === null){ //if user presses cancel
-            alert("choose a value!");
-        } else{
-            input = input.toLowerCase();
-            switch(input){
-                case "rock":
-                case "scissors":
-                case "paper":
-                    return input;
-            } 
-            promptDisplay = "Wrong value. Try again: Rock, Paper or Scissors?";      
-        }
-    }   
+    
+       
 }
 
 
@@ -91,7 +78,7 @@ function game(){
     let isPlaying = true;
     while(isPlaying){
         
-        const result = playRound(getPlayerSelection(), getComputerSelection());
+        //const result = playRound(getPlayerSelection(), getComputerSelection());
         
         switch(result){
             case "player":
