@@ -134,6 +134,8 @@ h2{
 
 .display-container .img-container img{
     animation: appear-slowly .3s linear;
+    width: 100%;
+    height: 100%;
 }
 .VS-logo{
     margin-top: 20px;
