@@ -16,6 +16,8 @@
 //function game: repe  ats 5 rounds
 let playerScore = 0;
 let computerScore = 0;  
+let playerSelection;
+let computerSelection;
 
 function getComputerSelection(){
     const randNum = Math.floor(Math.random()*3)+1;
@@ -32,8 +34,8 @@ function getComputerSelection(){
 
 
 function playRound(playerPressed){
-    const computerSelection = getComputerSelection();
-    const playerSelection = playerPressed.getAttribute("id");
+     computerSelection = getComputerSelection();
+     playerSelection = playerPressed.getAttribute("id");
     console.log("Player: "+ playerSelection);
     console.log("Computer:" + computerSelection);
     if(playerSelection === computerSelection){
@@ -48,25 +50,52 @@ function playRound(playerPressed){
     }else return "computer";
     
 }
+function logSelections(){
+    const playerSelectionDisplay = document.createElement("img");
+    const computerSelectionDisplay = document.createElement("img");
 
+    playerSelectionDisplay.src=`img/${playerSelection}.png`;
+    computerSelectionDisplay.src=`img/${computerSelection}.png`;
 
+    playerDisplayContainer.appendChild(playerSelectionDisplay);
+    computerDisplayContainer.appendChild(computerSelectionDisplay);
 
-function logRoundWinner(winner){
     
-    switch(winner){
-        case "draw":
-            break;
-        case "player":
-            playerScore++;
-            playerScoreDisplay.textContent = `Player: ${playerScore}`
-            break;
-        case "computer":
-            computerScore++;
-            computerScoreDisplay.textContent = `Computer: ${computerScore}`
-            break;
+}
+
+function removeLoggedSelections(){
+    if(computerDisplayContainer.querySelector("img")){
+        playerDisplayContainer.removeChild(playerDisplayContainer.querySelector("img"));
+        computerDisplayContainer.removeChild(computerDisplayContainer.querySelector("img"));
+
     }
 }
 
+
+function logRoundWinner(winner){
+
+    switch(winner){
+        case "draw":
+            gameResultDisplay.textContent="Draw!";
+
+            break;
+        case "player":
+            gameResultDisplay.textContent="You win!";
+
+            playerScore++;
+            break;
+        case "computer":
+            gameResultDisplay.textContent="Computer wins!";
+
+            computerScore++;
+
+            break;
+    }
+}
+function logScore(){
+    playerScoreDisplay.textContent = `Player: ${playerScore}`
+    computerScoreDisplay.textContent = `Computer: ${computerScore}`
+}
 
 function checkGameWinner(){
     if(playerScore===5){
@@ -85,22 +114,34 @@ function logGameWinner(gameWinner){
         gameResultDisplay.textContent = `Nice, you won!`;
         
     }
-    gameResultContainer.appendChild(gameResultDisplay);
 
 }
 
 function playGame(){
+    removeLoggedSelections();
     const roundWinner = playRound(this);
     logRoundWinner(roundWinner);
     const gameWinner = checkGameWinner();
-    if(gameWinner) logGameWinner(gameWinner);
+    logScore();
+    logSelections();
+    if(gameWinner){
+        logGameWinner(gameWinner);
+        playerScore = 0;
+        computerScore= 0;
+        console.log(playerScore);
+        logScore();
+    }
 }
-const gameResultDisplay = document.getElementById("announce-winner")
 
+
+const gameResultDisplay = document.getElementById("announce-result")
 const gameResultContainer = document.getElementById("round-result");
 
 const playerScoreDisplay = document.getElementById("player-score")
 const computerScoreDisplay = document.getElementById("computer-score");
+
+const playerDisplayContainer = document.getElementById("player-display-container");
+const computerDisplayContainer = document.getElementById("computer-display-container")
 
 const rockChoice = document.getElementById("rock");
 const paperChoice = document.getElementById("paper");
