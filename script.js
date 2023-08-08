@@ -26,14 +26,12 @@ function getComputerSelection(){
             return "scissors";
     }
 }
-function getPlayerSelection(){
-    let promptDisplay = "Rock, Paper or Scissors?";
-    
-       
-}
 
 
-function playRound(playerSelection, computerSelection){
+
+function playRound(playerPressed){
+    const computerSelection = getComputerSelection();
+    const playerSelection = playerPressed.getAttribute("id");
     console.log("Player: "+ playerSelection);
     console.log("Computer:" + computerSelection);
     if(playerSelection === computerSelection){
@@ -105,4 +103,17 @@ function game(){
     }
 }
 
-game();
+function playGame(){
+    const roundWinner = playRound(this);
+    logRoundWinner(roundWinner);
+}
+
+const rockChoice = document.getElementById("rock");
+const paperChoice = document.getElementById("paper");
+const scissorsChoice = document.getElementById("scissors");
+
+    
+    paperChoice.addEventListener("click", playGame);
+    rockChoice.addEventListener("click", playGame);
+    scissorsChoice.addEventListener("click", playGame);
+ 
