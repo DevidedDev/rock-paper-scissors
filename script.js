@@ -14,6 +14,8 @@
     //add points to winner
 
 //function game: repe  ats 5 rounds
+let playerScore = 0;
+let computerScore = 0;  
 
 function getComputerSelection(){
     const randNum = Math.floor(Math.random()*3)+1;
@@ -47,70 +49,63 @@ function playRound(playerPressed){
     
 }
 
-function logGameWinner(winner){
 
-    if (winner === "player"){
-        console.log("Nice job, you won the game!")
-    }else{
-        console.log("You lost...A 10 line algorithm rly beat you... O_o")
-    }
-
-}
 
 function logRoundWinner(winner){
+    
     switch(winner){
         case "draw":
-            console.log("Round ended with a draw!")
             break;
         case "player":
-            console.log("You won this round! Nice job!")
+            playerScore++;
+            playerScoreDisplay.textContent = `Player: ${playerScore}`
             break;
         case "computer":
-            console.log("The computer won this round")
+            computerScore++;
+            computerScoreDisplay.textContent = `Computer: ${computerScore}`
             break;
     }
 }
-function game(){
-    let playerScore = 0;
-    let computerScore = 0;
-    let isPlaying = true;
-    while(isPlaying){
-        
-        //const result = playRound(getPlayerSelection(), getComputerSelection());
-        
-        switch(result){
-            case "player":
-                playerScore++;
-                logRoundWinner(result);
-                break;
-            case "draw":
-                logRoundWinner(result);
-                break;
-            case "computer":
-                computerScore++;
-                logRoundWinner(result);
-                break;    
-        }
-        console.log(`Current score: --Player: ${playerScore} -- Computer: ${computerScore} --`);
 
-        if(computerScore === 5){
-            logGameWinner("computer");
-            isPlaying = false;
-        }else if(playerScore === 5){
-            logGameWinner("player")
-            isPlaying = false;
-        }
+
+function checkGameWinner(){
+    if(playerScore===5){
+        return "player";
+
+    }else if(computerScore===5){
+        return "computer";
     }
+}
+
+function logGameWinner(gameWinner){
+    if(gameWinner === "computer"){
+        gameResultDisplay.textContent = `A few lines of code rly beat you...`
+
+    }else{
+        gameResultDisplay.textContent = `Nice, you won!`;
+        
+    }
+    gameResultContainer.appendChild(gameResultDisplay);
+
 }
 
 function playGame(){
     const roundWinner = playRound(this);
     logRoundWinner(roundWinner);
+    const gameWinner = checkGameWinner();
+    if(gameWinner) logGameWinner(gameWinner);
 }
+const gameResultDisplay = document.getElementById("announce-winner")
+
+const gameResultContainer = document.getElementById("round-result");
+
+const playerScoreDisplay = document.getElementById("player-score")
+const computerScoreDisplay = document.getElementById("computer-score");
 
 const rockChoice = document.getElementById("rock");
 const paperChoice = document.getElementById("paper");
 const scissorsChoice = document.getElementById("scissors");
+
 
     
     paperChoice.addEventListener("click", playGame);

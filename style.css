@@ -36,6 +36,13 @@ h2{
     font-size: 30px;
     padding-bottom: 10px;
 }
+
+.display-above{
+    z-index: 10;
+    position: fixed;
+    margin: 0 auto ;
+    
+}
 .body{
     box-sizing: border-box;
     height: 100vh;
